@@ -10,7 +10,7 @@ export class HttpService {
 
   post(url: string, body: any): Promise<any> {
     let headerDict = {}
-    headerDict["Content-Type"] = 'text/plain';
+    headerDict["Content-Type"] = 'application/json';
 
     const requestOptions = {
       headers: new HttpHeaders(headerDict),

@@ -25,9 +25,12 @@ export class LoginpageComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.httpService.hasAuthToken())
+      this.router.navigate(['']);
   }
 
   onSubmit() {
+    this.error = '';
     this.httpService.post(
       "http://localhost/lesgermes_symfony/web/app_dev.php/api/login_check", 
       { username: this.loginForm.value.username, password: this.loginForm.value.password }
@@ -36,7 +39,7 @@ export class LoginpageComponent implements OnInit {
         localStorage.setItem('token', data.token);
         this.router.navigate(['']);
       },
-      error => this.error = error.message
+      error => this.error = error.error.message
     );
   }
 }

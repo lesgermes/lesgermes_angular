@@ -9,6 +9,7 @@ import { Routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
+import { RegisterpageComponent } from './registerpage/registerpage.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -18,7 +19,8 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     HomepageComponent,
-    LoginpageComponent
+    LoginpageComponent,
+    RegisterpageComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,10 @@ export function tokenGetter() {
       config: {
         tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost'],
-        blacklistedRoutes: ['localhost/lesgermes_symfony/web/app_dev.php/api/login_check']
+        blacklistedRoutes: [
+          'localhost/lesgermes_symfony/web/app_dev.php/api/login_check',
+          'localhost/lesgermes_symfony/web/app_dev.php/api/register',
+        ]
       }
     })
   ],
