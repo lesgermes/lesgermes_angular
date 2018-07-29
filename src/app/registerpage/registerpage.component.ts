@@ -37,7 +37,7 @@ export class RegisterpageComponent implements OnInit {
     this.success = false;
     this.error = '';
     this.httpService.post(
-      "http://localhost/lesgermes_symfony/web/app_dev.php/api/register", 
+      "https://api.lesgermes.tk/register", 
       { 
         username: this.registerForm.value.username, 
         email: this.registerForm.value.email, 

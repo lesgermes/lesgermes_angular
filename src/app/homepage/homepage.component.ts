@@ -17,7 +17,7 @@ export class HomepageComponent implements OnInit {
     if (!this.httpService.hasAuthToken())
       this.router.navigate(['login']);
     else {
-      this.httpService.get("http://localhost/lesgermes_symfony/web/app_dev.php/api/user")
+      this.httpService.get("https://api.lesgermes.tk/user")
       .then(
         (data: any) => {
           this.currentUser = data;

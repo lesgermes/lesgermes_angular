@@ -32,7 +32,7 @@ export class LoginpageComponent implements OnInit {
   onSubmit() {
     this.error = '';
     this.httpService.post(
-      "http://localhost/lesgermes_symfony/web/app_dev.php/api/login_check", 
+      "https://api.lesgermes.tk/login_check", 
       { username: this.loginForm.value.username, password: this.loginForm.value.password }
     ).then(
       (data: any) => {
