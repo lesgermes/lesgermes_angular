@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { HttpService } from '../services/http.service';
+import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from '../app.config';
 
 @Component({
   selector: 'app-homepage',
@@ -8,16 +10,23 @@ import { HttpService } from '../services/http.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  config: ApplicationConfig;
   currentUser = {};
   error: string = '';
 
-  constructor(private router: Router, private httpService: HttpService) { }
+  constructor(
+    @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
+    private router: Router, 
+    private httpService: HttpService
+  ) {
+    this.config = configuration;
+   }
 
   ngOnInit() {
     if (!this.httpService.hasAuthToken())
       this.router.navigate(['login']);
     else {
-      this.httpService.get("https://api.lesgermes.tk/user")
+      this.httpService.get(this.config.apiEndpoint + "/user")
       .then(
         (data: any) => {
           this.currentUser = data;
