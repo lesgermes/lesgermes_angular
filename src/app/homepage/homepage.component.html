@@ -4,3 +4,21 @@
 </div>
 
 <p>Bienvenue {{currentUser.username}}</p>
+
+<div class="mediaLists" *ngIf="mediaLists">
+  <div class="mediaList" *ngFor="let mediaList of mediaLists">
+    <div *ngIf="mediaList.medias.length > 0">
+      <h3>{{mediaList.name}}</h3>
+
+      <div class="media" *ngFor="let media of mediaList.medias">
+        <youtube-player 
+          [videoId]="media.url" 
+          [playerVars]="playerVars"
+          (ready)="savePlayer($event)"
+          (change)="onStateChange($event)"
+        >
+        </youtube-player>
+      </div>
+    </div>
+  </div>
+</div>
