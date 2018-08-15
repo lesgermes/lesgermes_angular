@@ -41,6 +41,7 @@ export class LoginpageComponent implements OnInit {
     ).then(
       (data: any) => {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('refresh_token', data.refresh_token)
         this.router.navigate(['']);
       },
       error => this.error = error.error.message

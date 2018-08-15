@@ -1,12 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, ReplaySubject } from 'rxjs';
+import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from '../app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
+  config: ApplicationConfig;
 
-  constructor(public http: HttpClient) { }
+  constructor(
+    @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
+    public http: HttpClient
+  ) {
+    this.config = configuration;
+   }
 
   post(url: string, body: any): Promise<any> {
     let headerDict = {}
@@ -59,5 +67,25 @@ export class HttpService {
 
   public hasAuthToken() {
     return localStorage.getItem('token') !== null;
+  }
+
+  public refreshTokens(): Observable<any> {
+    const body = new HttpParams().set('refresh_token', localStorage.getItem('refresh_token'));
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    const refreshObservable = this.http.post(this.config.apiEndpoint + "/token/refresh", body.toString(), { headers });
+
+    const refreshSubject = new ReplaySubject<any>(1);
+    refreshSubject.subscribe((r: any) => {
+      localStorage.setItem('token', r.token);
+      localStorage.setItem('refresh_token', r.refresh_token);
+    }, (err) => {
+      localStorage.clear();
+      //redirect to login screen
+    });
+
+    refreshObservable.subscribe(refreshSubject);
+    return refreshSubject;
   }
 }

@@ -1,13 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
-import { HttpClientModule } from '@angular/common/http';
+import { JwtModule, JWT_OPTIONS, JwtInterceptor } from '@auth0/angular-jwt';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { YoutubePlayerModule } from 'ngx-youtube-player';
 
 import { Routing } from './app.routing';
 import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from './app.config';
 import { TokenService } from './app.tokenservice';
+import { RefreshTokenInterceptorService } from './services/refresh-token-interceptor.service';
 
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -49,7 +50,18 @@ export function jwtOptionsFactory(tokenService) {
   ],
   providers: [
     {provide: MY_CONFIG_TOKEN, useValue: MY_CONFIG},
-    TokenService
+    TokenService,
+    JwtInterceptor, // Providing JwtInterceptor allow to inject JwtInterceptor manually into RefreshTokenInterceptor
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useExisting: JwtInterceptor,
+    //   multi: true
+    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
