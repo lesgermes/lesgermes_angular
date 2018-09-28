@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { JwtModule, JWT_OPTIONS, JwtInterceptor } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { YoutubePlayerModule } from 'ngx-youtube-player';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { Routing } from './app.routing';
 import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from './app.config';
@@ -14,6 +15,7 @@ import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { RegisterpageComponent } from './registerpage/registerpage.component';
+import { MediaModalComponent } from './components/mediamodal/mediamodal.component';
 
 export function jwtOptionsFactory(tokenService) {
   var whitelistedDomains = tokenService.getWhitelistedDomains();
@@ -32,7 +34,8 @@ export function jwtOptionsFactory(tokenService) {
     AppComponent,
     HomepageComponent,
     LoginpageComponent,
-    RegisterpageComponent
+    RegisterpageComponent,
+    MediaModalComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ export function jwtOptionsFactory(tokenService) {
         deps: [TokenService]
       }
     }),
-    YoutubePlayerModule
+    YoutubePlayerModule,
+    NgbModule.forRoot()
   ],
   providers: [
     {provide: MY_CONFIG_TOKEN, useValue: MY_CONFIG},

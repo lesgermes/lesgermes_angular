@@ -16,12 +16,6 @@ export class HomepageComponent implements OnInit {
   currentUser = {};
   mediaLists: Array<MediaList>;
   error: string = '';
-  playerVars: YT.PlayerVars = {
-    modestbranding: YT.ModestBranding.Modest,
-    iv_load_policy: YT.IvLoadPolicy.Hide,
-    rel: YT.RelatedVideos.Hide,
-    showinfo: YT.ShowInfo.Hide
-  }
 
   constructor(
     @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
@@ -56,13 +50,6 @@ export class HomepageComponent implements OnInit {
       },
       error => this.error = error.message
     )
-  }
-
-  onStateChange(event) {
-    // this.ytEvent = event.data;
-  }
-  savePlayer(player) {
-    // this.player = player;
   }
 
 }

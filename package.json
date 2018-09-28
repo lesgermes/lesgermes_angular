@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "@auth0/angular-jwt": "^2.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^3.2.2",
     "core-js": "^2.5.4",
     "express": "^4.16.3",
     "ngx-youtube-player": "^6.0.0",

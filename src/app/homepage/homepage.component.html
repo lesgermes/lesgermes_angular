@@ -11,13 +11,7 @@
       <h3>{{mediaList.name}}</h3>
 
       <div class="media" *ngFor="let media of mediaList.medias">
-        <youtube-player 
-          [videoId]="media.url" 
-          [playerVars]="playerVars"
-          (ready)="savePlayer($event)"
-          (change)="onStateChange($event)"
-        >
-        </youtube-player>
+        <mediamodal-component [media]="media"></mediamodal-component>
       </div>
     </div>
   </div>
