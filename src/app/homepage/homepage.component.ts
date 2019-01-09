@@ -5,6 +5,7 @@ import { HttpService } from '../services/http.service';
 import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from '../app.config';
 
 import { MediaList, Media } from '../models/mediaList';
+import { CurrentUser } from '../models/currentUser';
 
 @Component({
   selector: 'app-homepage',
@@ -13,7 +14,7 @@ import { MediaList, Media } from '../models/mediaList';
 })
 export class HomepageComponent implements OnInit {
   config: ApplicationConfig;
-  currentUser = {};
+  currentUser: CurrentUser;
   mediaLists: Array<MediaList>;
   error: string = '';
 
@@ -36,7 +37,7 @@ export class HomepageComponent implements OnInit {
   init() {
     this.httpService.get(this.config.apiEndpoint + "/user")
     .then(
-      (data: any) => {
+      (data: CurrentUser) => {
         this.currentUser = data;
       },
       error => this.error = error.message
