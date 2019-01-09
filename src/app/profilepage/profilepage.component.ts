@@ -1,12 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 import { HttpService } from '../services/http.service';
 import { ApplicationConfig, MY_CONFIG_TOKEN } from '../app.config';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CurrentUser } from '../models/currentUser';
 
 @Component({
   selector: 'app-profilepage',
@@ -15,7 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ProfilepageComponent implements OnInit {
   config: ApplicationConfig;
-  currentUser = {};
+  currentUser: CurrentUser;
   error: string = '';
   registerPromoCodeForm: FormGroup;
 
@@ -40,7 +41,7 @@ export class ProfilepageComponent implements OnInit {
   init() {
     this.httpService.get(this.config.apiEndpoint + "/user")
     .then(
-      (data: any) => {
+      (data: CurrentUser) => {
         this.currentUser = data;
       },
       error => this.error = error.message
