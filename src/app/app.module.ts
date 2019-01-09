@@ -16,6 +16,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { RegisterpageComponent } from './registerpage/registerpage.component';
 import { MediaModalComponent } from './components/mediamodal/mediamodal.component';
+import { ProfilepageComponent } from './profilepage/profilepage.component';
 
 export function jwtOptionsFactory(tokenService) {
   var whitelistedDomains = tokenService.getWhitelistedDomains();
@@ -35,7 +36,8 @@ export function jwtOptionsFactory(tokenService) {
     HomepageComponent,
     LoginpageComponent,
     RegisterpageComponent,
-    MediaModalComponent
+    MediaModalComponent,
+    ProfilepageComponent
   ],
   imports: [
     BrowserModule,

@@ -19,12 +19,9 @@ export class Media {
         this.name           = obj && obj.name           || null;
         this.type           = obj && obj.type.name      || null;
         this.url            = obj && obj.url            || null;
-        this.thumbnail      = obj && obj.thumbnail      || null;
         this.userCanRead    = obj && obj.user_can_read  || null;
 
-        if (this.type == "YouTube") {
-            this.getYoutubeThumbnail();
-        }
+        this.getYoutubeThumbnail();
     }
 
     getYoutubeThumbnail() {

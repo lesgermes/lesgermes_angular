@@ -21,5 +21,7 @@
   </div>
 </ng-template>
 
-<img class="mediaThumbnail" src="{{media.thumbnail}}" (click)="open(content)" *ngIf="media.userCanRead"/>
-<img class="mediaThumbnail mediaDisabled" src="{{media.thumbnail}}" *ngIf="!media.userCanRead"/>
+<div *ngIf="media.type == 'YouTube'">
+  <img class="mediaThumbnail" src="{{media.thumbnail}}" (click)="open(content)" *ngIf="media.userCanRead"/>
+  <img class="mediaThumbnail mediaDisabled" src="{{media.thumbnail}}" *ngIf="!media.userCanRead"/>
+</div>

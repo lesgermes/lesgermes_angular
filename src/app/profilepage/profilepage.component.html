@@ -1,0 +1,58 @@
+<div class="row">
+  <label for="username" class="col-md-3">Nom d'utilisateur: </label>
+  <div id="username" class="col-md-4">{{currentUser.username}}</div>
+</div>
+
+<div class="row">
+  <label for="username" class="col-md-3">Titre: </label>
+  <div id="username" class="col-md-4" *ngIf="currentUser.title">{{currentUser.title}}</div>
+</div>
+
+<div class="row">
+  <label for="lastname" class="col-md-3">Nom: </label>
+  <div id="lastname" class="col-md-4">{{currentUser.last_name}}</div>
+</div>
+
+<div class="row">
+  <label for="firstname" class="col-md-3">Prénom: </label>
+  <div id="firstname" class="col-md-4">{{currentUser.first_name}}</div>
+</div>
+
+<div class="row">
+  <label for="email" class="col-md-3">Email: </label>
+  <div id="email" class="col-md-4">{{currentUser.email}}</div>
+</div>
+
+<div class="row">
+  <label for="coins" class="col-md-3">Kauris: </label>
+  <div id="coins" class="col-md-4">{{currentUser.coins}}</div>
+</div>
+
+<button class="btn btn-default" (click)="openRegisterPromoCodeModal(content)">Enregistrer mon code promo</button>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Enregistrer mon code promo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="registerPromoCodeForm" (ngSubmit)="registerPromoCode()">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Code Promo*" formControlName="promoCode">
+      </div>
+  
+      <button type="submit" class="btn btn-success pull-right" [disabled]="!registerPromoCodeForm.valid">Confirmer</button>
+    </form>
+
+    <div [hidden]="!error" class="alert alert-danger" role="alert">
+	  	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	  	<span class="sr-only">Erreur:</span>
+	  	Erreur: {{error}}
+	  </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Fermer</button>
+  </div>
+</ng-template>
