@@ -93,7 +93,7 @@ export class ProfilepageComponent implements OnInit {
     )
   }
 
-  private openSetTitleModal(content) {
+  openSetTitleModal(content) {
     this.setTitleForm = this.formBuilder.group({
       'titleid': ['', Validators.required]
     });
@@ -113,7 +113,7 @@ export class ProfilepageComponent implements OnInit {
     )
   }
 
-  private submitTitle() {
+  submitTitle() {
     this.error = '';
     this.httpService.post(
       this.config.apiEndpoint + "/user/set_title", 
