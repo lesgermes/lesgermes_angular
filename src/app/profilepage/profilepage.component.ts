@@ -8,6 +8,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { HttpService } from '../services/http.service';
 import { ApplicationConfig, MY_CONFIG_TOKEN } from '../app.config';
 import { CurrentUser } from '../models/currentUser';
+import { UserTitle } from '../models/userTitle';
 
 @Component({
   selector: 'app-profilepage',
@@ -17,8 +18,10 @@ import { CurrentUser } from '../models/currentUser';
 export class ProfilepageComponent implements OnInit {
   config: ApplicationConfig;
   currentUser: CurrentUser;
+  userTitles: Array<UserTitle>;
   error: string = '';
   registerPromoCodeForm: FormGroup;
+  setTitleForm: FormGroup;
 
   constructor(
     @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
@@ -88,6 +91,52 @@ export class ProfilepageComponent implements OnInit {
         }
       }
     )
+  }
+
+  private openSetTitleModal(content) {
+    this.setTitleForm = this.formBuilder.group({
+      'titleid': ['', Validators.required]
+    });
+    this.httpService.get(this.config.apiEndpoint + "/user/get_available_titles")
+    .then(
+      (data: Array<UserTitle>) => {
+        this.userTitles = data;
+        this.modalService.open(content, {ariaLabelledBy: 'setTitleModal'}).result.then((result) => {
+          //this.closeResult = `Closed with: ${result}`;
+          this.error = '';
+        }, (reason) => {
+          //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          this.error = '';
+        });
+      },
+      error => this.error = error.message
+    )
+  }
+
+  private submitTitle() {
+    this.error = '';
+    this.httpService.post(
+      this.config.apiEndpoint + "/user/set_title", 
+      { id: this.setTitleForm.value.titleid }
+    ).then(
+      (data: any) => {
+        this.modalService.dismissAll("User set a title successfully");
+        this.init();
+      },
+      (error: HttpErrorResponse) => {
+        switch(error.status) {
+          case 401:
+            this.error = "Ce titre n'existe pas.";
+            break;
+          case 402:
+            this.error = "Vous n'avez pas accès à ce titre.";
+            break;
+          default:
+            this.error = "Une erreur est survenue, veillez réessayer.";
+            break;
+        }
+      }
+    );
   }
 
 }
