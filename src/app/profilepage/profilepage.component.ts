@@ -22,6 +22,7 @@ export class ProfilepageComponent implements OnInit {
   error: string = '';
   registerPromoCodeForm: FormGroup;
   setTitleForm: FormGroup;
+  setUsernameForm: FormGroup;
 
   constructor(
     @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
@@ -130,6 +131,42 @@ export class ProfilepageComponent implements OnInit {
             break;
           case 402:
             this.error = "Vous n'avez pas accès à ce titre.";
+            break;
+          default:
+            this.error = "Une erreur est survenue, veillez réessayer.";
+            break;
+        }
+      }
+    );
+  }
+
+  openSetUsernameModal(content) {
+    this.setUsernameForm = this.formBuilder.group({
+      'username': [this.currentUser.username, Validators.required]
+    });
+    this.modalService.open(content, {ariaLabelledBy: 'setUsernameModal'}).result.then((result) => {
+      //this.closeResult = `Closed with: ${result}`;
+      this.error = '';
+    }, (reason) => {
+      //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.error = '';
+    });
+  }
+
+  submitUsername() {
+    this.error = '';
+    this.httpService.post(
+      this.config.apiEndpoint + "/user/set_username", 
+      { username: this.setUsernameForm.value.username }
+    ).then(
+      (data: any) => {
+        this.modalService.dismissAll("User set a username successfully");
+        this.init();
+      },
+      (error: HttpErrorResponse) => {
+        switch(error.status) {
+          case 401:
+            this.error = "Ce nom d'utilisateur n'est pas disponible.";
             break;
           default:
             this.error = "Une erreur est survenue, veillez réessayer.";

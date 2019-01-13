@@ -23,7 +23,11 @@ export class LoginpageComponent implements OnInit {
   ) { 
     this.config = configuration;
     this.loginForm = formBuilder.group({
-      'username': ['', Validators.required],
+      'username': ['', [
+        Validators.required, 
+        //email regex
+        Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)
+      ]],
       'password': ['', Validators.required]
     });
   }

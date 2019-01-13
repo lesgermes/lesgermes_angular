@@ -1,6 +1,7 @@
 <div class="row">
   <label for="username" class="col-md-3">Nom d'utilisateur: </label>
   <div id="username" class="col-md-4">{{currentUser.username}}</div>
+  <button class="btn btn-default btn-sm" (click)="openSetUsernameModal(content3)">Changer</button>
 </div>
 
 <div class="row">
@@ -86,3 +87,30 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Fermer</button>
   </div>
 </ng-template>
+
+<ng-template #content3 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="setUsernameModal">Modifiez votre nom d'utilisateur</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div [hidden]="!error" class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Erreur:</span>
+          Erreur: {{error}}
+      </div>
+  
+      <form [formGroup]="setUsernameForm" (ngSubmit)="submitUsername()">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Username*" formControlName="username">
+        </div>
+     
+        <button type="submit" class="btn btn-success pull-right" [disabled]="!setUsernameForm.valid">Confirmer</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Fermer</button>
+    </div>
+  </ng-template>
