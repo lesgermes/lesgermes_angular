@@ -9,6 +9,7 @@ import { HttpService } from '../services/http.service';
 import { ApplicationConfig, MY_CONFIG_TOKEN } from '../app.config';
 import { CurrentUser } from '../models/currentUser';
 import { UserTitle } from '../models/userTitle';
+import { ProfileImage } from '../models/profileImage';
 
 @Component({
   selector: 'app-profilepage',
@@ -23,6 +24,7 @@ export class ProfilepageComponent implements OnInit {
   registerPromoCodeForm: FormGroup;
   setTitleForm: FormGroup;
   setUsernameForm: FormGroup;
+  profileImages: Array<ProfileImage>;
 
   constructor(
     @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig,
@@ -167,6 +169,49 @@ export class ProfilepageComponent implements OnInit {
         switch(error.status) {
           case 401:
             this.error = "Ce nom d'utilisateur n'est pas disponible.";
+            break;
+          default:
+            this.error = "Une erreur est survenue, veillez réessayer.";
+            break;
+        }
+      }
+    );
+  }
+
+  openSetProfileImageModal(content) {
+    this.httpService.get(this.config.apiEndpoint + "/user/get_profile_images")
+    .then(
+      (data: Array<ProfileImage>) => {
+        this.profileImages = data;
+        this.modalService.open(content, {ariaLabelledBy: 'setProfileImageModal'}).result.then((result) => {
+          //this.closeResult = `Closed with: ${result}`;
+          this.error = '';
+        }, (reason) => {
+          //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          this.error = '';
+        });
+      },
+      error => this.error = error.message
+    )
+  }
+
+  submitProfileImage(profileImage) {
+    this.error = '';
+    this.httpService.post(
+      this.config.apiEndpoint + "/user/set_profile_image", 
+      { id: profileImage.id }
+    ).then(
+      (data: any) => {
+        this.modalService.dismissAll("User set a profile image successfully");
+        this.init();
+      },
+      (error: HttpErrorResponse) => {
+        switch(error.status) {
+          case 401:
+            this.error = "Cette image de profil n'est pas disponible.";
+            break;
+          case 402:
+            this.error = "Vous n'avez pas les accès pour choisir cette image de profil.";
             break;
           default:
             this.error = "Une erreur est survenue, veillez réessayer.";

@@ -1,0 +1,8 @@
+.profileImage {
+    border-style: solid;
+    max-height: 100px;
+    border-radius: 50%;
+    border-color: #a9a9a9;
+    background-color: #a9a9a973;
+    background-size: contain;
+}

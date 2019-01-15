@@ -18,6 +18,7 @@ import { RegisterpageComponent } from './registerpage/registerpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
 
 import { MediaModalComponent } from './components/mediamodal/mediamodal.component';
+import { ProfileImageMouseOverDirective } from './directives/profile-image-mouse-over.directive';
 
 export function jwtOptionsFactory(tokenService) {
   var whitelistedDomains = tokenService.getWhitelistedDomains();
@@ -38,7 +39,8 @@ export function jwtOptionsFactory(tokenService) {
     LoginpageComponent,
     RegisterpageComponent,
     ProfilepageComponent,
-    MediaModalComponent
+    MediaModalComponent,
+    ProfileImageMouseOverDirective
   ],
   imports: [
     BrowserModule,
