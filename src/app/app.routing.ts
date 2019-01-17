@@ -4,6 +4,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { RegisterpageComponent } from './registerpage/registerpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
+import { ChatComponent } from './chat/chat.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -21,6 +22,10 @@ const APP_ROUTES: Routes = [
     {
         path: 'profile',
         component: ProfilepageComponent
+    },
+    {
+        path: 'chat',
+        component: ChatComponent
     },
     // {
     //     path: 'post',

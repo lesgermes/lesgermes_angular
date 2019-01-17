@@ -1,6 +1,7 @@
 import { ProfileImage } from "./profileImage";
 
 export class CurrentUser {
+    id: number;
     username: string;
     title: string;
     last_name: string;
@@ -10,6 +11,7 @@ export class CurrentUser {
     profile_image: ProfileImage;
 
     constructor(obj?: any) {
+        this.id             = obj && obj.id             || null;
         this.username       = obj && obj.username       || null;
         this.title          = obj && obj.title          || null;
         this.last_name      = obj && obj.last_name      || null;

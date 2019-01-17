@@ -14,6 +14,7 @@
             </div>
             <ul class="navbar-nav my-2 my-lg-0">
                 <li class="nav-item" *ngIf="!hasAuthToken()"><a class="nav-link" [routerLink]="['/login']">Connexion</a></li>
+                <li class="nav-item" *ngIf="hasAuthToken()"><a class="nav-link" [routerLink]="['/chat']">Chat</a></li>
                 <li class="nav-item" *ngIf="hasAuthToken()"><a class="nav-link" [routerLink]="['/profile']">Profil</a></li>
                 <li class="nav-item" *ngIf="hasAuthToken()"><a class="nav-link" (click)="logout()" href="#">Déconnexion</a></li>
             </ul>

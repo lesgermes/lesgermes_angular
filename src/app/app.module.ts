@@ -20,6 +20,8 @@ import { ProfilepageComponent } from './profilepage/profilepage.component';
 import { MediaModalComponent } from './components/mediamodal/mediamodal.component';
 import { ProfileImageMouseOverDirective } from './directives/profile-image-mouse-over.directive';
 
+import { ChatModule } from './chat/chat.module';
+
 export function jwtOptionsFactory(tokenService) {
   var whitelistedDomains = tokenService.getWhitelistedDomains();
   var blacklistedRoutes = tokenService.getBlacklistedRoutes();
@@ -55,7 +57,8 @@ export function jwtOptionsFactory(tokenService) {
       }
     }),
     YoutubePlayerModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    ChatModule
   ],
   providers: [
     {provide: MY_CONFIG_TOKEN, useValue: MY_CONFIG},

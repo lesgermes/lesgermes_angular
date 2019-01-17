@@ -3,7 +3,8 @@ import { InjectionToken } from '@angular/core';
 export interface ApplicationConfig {
     apiDomain: string;
     apiEndpoint: string;
-    apiBlacklistedRoutes: Array<string>
+    apiBlacklistedRoutes: Array<string>;
+    chatUrl: string;
 }
 
 export const MY_CONFIG = {
@@ -13,7 +14,8 @@ export const MY_CONFIG = {
     //     "api.lesgermes.local/app_dev.php/login_check",
     //     "api.lesgermes.local/app_dev.php/register",
     //     "api.lesgermes.local/app_dev.php/token/refresh"
-    // ]
+    // ],
+    // chatUrl: "http://localhost:8080"
 
     apiDomain: "api.lesgermes.tk",
     apiEndpoint: "https://api.lesgermes.tk",
@@ -21,7 +23,8 @@ export const MY_CONFIG = {
         "api.lesgermes.tk/login_check",
         "api.lesgermes.tk/register",
         "api.lesgermes.tk/token/refresh"
-    ]
+    ],
+    chatUrl: "http://api.lesgermes.tk:8080"
 };
 
 export const MY_CONFIG_TOKEN = new InjectionToken<ApplicationConfig>('config');
