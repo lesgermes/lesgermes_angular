@@ -24,7 +24,7 @@ export const MY_CONFIG = {
         "api.lesgermes.tk/register",
         "api.lesgermes.tk/token/refresh"
     ],
-    chatUrl: "http://api.lesgermes.tk:8080"
+    chatUrl: "https://api.lesgermes.tk:8080"
 };
 
 export const MY_CONFIG_TOKEN = new InjectionToken<ApplicationConfig>('config');
